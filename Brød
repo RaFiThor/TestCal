@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Live Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.0.0/ical.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>My Live Calendar</h1>
+    </header>
+    <main>
+        <img src="your-photo.jpg" alt="Description of image">
+        <div id="calendar"></div>
+    </main>
+    <script>
+        const icalUrl = 'https://thoravej29dk.spaces.nexudus.com/en/feeds/resource?bid=7370c0a6-bc4b-4caf-b9f5-1e64233b9bf5&rid=dc13acdd-0b48-43fc-868b-5856aa73a3a4';
+
+        fetch(icalUrl)
+            .then(response => response.text())
+            .then(data => {
+                const jcalData = ICAL.parse(data);
+                const comp = new ICAL.Component(jcalData);
+                const events = comp.getAllProperties('vevent');
+                let html = '<ul>';
+                events.forEach(event => {
+                    const eventName = event.getFirstPropertyValue('summary');
+                    const startDate = event.getFirstPropertyValue('dtstart').toString();
+                    html += `<li>${eventName} - ${startDate}</li>`;
+                });
+                html += '</ul>';
+                document.getElementById('calendar').innerHTML = html;
+            });
+    </script>
+</body>
+</html>
