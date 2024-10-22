@@ -12,7 +12,7 @@
         <h1>My Live Calendar</h1>
     </header>
     <main>
-        <img src="your-photo.jpg" alt="Description of image">
+        <img src="Testbillede.jpg" alt="Description of image">
         <div id="calendar"></div>
     </main>
     <script>
